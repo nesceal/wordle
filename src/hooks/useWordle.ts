@@ -1,10 +1,10 @@
 import { useCallback, useReducer } from 'react';
 
 import {
-  AnswerList,
+  ANSWER_LIST,
   MaxAttempts,
   WordLength,
-  WordList,
+  WORD_LIST,
 } from '../lib/constants';
 
 import { KeyStatus, WordleStatus } from '../lib/enums';
@@ -20,7 +20,7 @@ type GameAction =
 const getLetterResult = (
   guess: string[],
   answer: string,
-  keyResults: { [key: string]: string }
+  keyResults: { [key: string]: KeyStatus },
 ): KeyStatus[] => {
   const result: KeyStatus[] = Array(guess.length).fill(KeyStatus.Absent);
   const answerArray = answer.split('');
@@ -92,7 +92,7 @@ const reducer = (state: GameState, action: GameAction): GameState => {
     case 'enter':
       if (!isGameOver) {
         if (state.currentGuess.length === WordLength) {
-          if (!WordList.includes(state.currentGuess)) {
+          if (!WORD_LIST.includes(state.currentGuess)) {
             return {
               ...state,
               status: WordleStatus.InvalidWord,
@@ -104,7 +104,7 @@ const reducer = (state: GameState, action: GameAction): GameState => {
           const result = getLetterResult(
             state.currentGuess.split(''),
             state.answer,
-            newKeyResults
+            newKeyResults,
           );
 
           const newGuess: Guess = { word: state.currentGuess, result };
@@ -114,8 +114,8 @@ const reducer = (state: GameState, action: GameAction): GameState => {
             state.currentGuess === state.answer
               ? WordleStatus.Answered
               : newGuesses.length >= MaxAttempts
-              ? WordleStatus.Completed
-              : WordleStatus.Playing;
+                ? WordleStatus.Completed
+                : WordleStatus.Playing;
 
           return {
             ...state,
@@ -146,8 +146,8 @@ const reducer = (state: GameState, action: GameAction): GameState => {
 };
 
 const generateAnswer = () => {
-  const i = Math.floor(Math.random() * AnswerList.length);
-  return AnswerList[i];
+  const i = Math.floor(Math.random() * ANSWER_LIST.length);
+  return ANSWER_LIST[i];
 };
 
 const initialState: GameState = {

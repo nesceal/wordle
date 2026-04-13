@@ -25,7 +25,3 @@ export interface Guess {
   word: string;
   result: Array<KeyStatus>;
 }
-
-export type GuessesObject = {
-  [key: number]: string[];
-};
