@@ -23,16 +23,16 @@ const AnswerGrid = ({ currentTurn, guesses, status }: GridProps) => {
           index === currentTurn &&
           (status === WordleStatus.InvalidGuess ||
             status === WordleStatus.InvalidWord)
-            ? styles.row + ' ' + styles.invalid
+            ? `${styles.row} ${styles.invalid}`
             : styles.row;
 
         return (
           <div key={index} className={rowClass}>
             {wordArray.map((letter: string, i: number) => {
-              const resultClass = styles.letter + ' ' + styles[guess.result[i]];
+              const resultClass = `${styles.letter} ${styles[guess.result[i]]}`;
               const styleClass =
                 index === currentTurn && letter !== ''
-                  ? resultClass + ' ' + styles.guessing
+                  ? `${resultClass} ${styles.guessing}`
                   : resultClass;
 
               return (

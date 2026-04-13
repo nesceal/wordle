@@ -22,11 +22,11 @@ const App = () => {
       totalWon: 0,
     };
 
-    const prevStats = localStorage.getItem('react-wordle-devthena');
+    const prevStats = localStorage.getItem('nai-react-wordle');
 
     if (!prevStats) setStats(initialState);
     else setStats(JSON.parse(prevStats));
-  }, []);
+  }, [setStats]);
 
   return (
     <main className={styles.app}>

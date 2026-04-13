@@ -20,7 +20,7 @@ type GameAction =
 const getLetterResult = (
   guess: string[],
   answer: string,
-  keyResults: { [key: string]: string },
+  keyResults: { [key: string]: KeyStatus },
 ): KeyStatus[] => {
   const result: KeyStatus[] = Array(guess.length).fill(KeyStatus.Absent);
   const answerArray = answer.split('');

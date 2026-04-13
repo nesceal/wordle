@@ -16,13 +16,13 @@ const Keyboard = ({ keyResults, onDelete, onEnter, onKey }: KeyboardProps) => {
     const isBackspace = letter === 'Backspace';
     const isEnter = letter === 'Enter';
 
-    const keyResult = keyResults[letter] || 'none';
+    const colorClass = keyResults[letter] ? styles[keyResults[letter]] : undefined;
 
     const styleClass = isBackspace
-      ? `${styles.backspace} ${styles[keyResult]}`
+      ? [styles.backspace, colorClass].filter(Boolean).join(' ')
       : isEnter
-      ? `${styles.enter} ${styles[keyResult]}`
-      : styles[keyResult];
+      ? [styles.enter, colorClass].filter(Boolean).join(' ')
+      : colorClass;
 
     return (
       <button

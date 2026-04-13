@@ -6,6 +6,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useMemo,
   useReducer,
 } from 'react';
 
@@ -46,10 +47,7 @@ const reducer = (state: WordleState, action: WordleAction): WordleState => {
         modal: action.payload,
       };
     case 'set_stats':
-      localStorage.setItem(
-        'react-wordle-devthena',
-        JSON.stringify(action.payload)
-      );
+      localStorage.setItem('nai-react-wordle', JSON.stringify(action.payload));
       return {
         ...state,
         stats: action.payload,
@@ -61,10 +59,9 @@ const reducer = (state: WordleState, action: WordleAction): WordleState => {
 
 const WordleProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const value = useMemo(() => ({ state, dispatch }), [state]);
   return (
-    <WordleContext.Provider value={{ state, dispatch }}>
-      {children}
-    </WordleContext.Provider>
+    <WordleContext.Provider value={value}>{children}</WordleContext.Provider>
   );
 };
 
@@ -81,21 +78,21 @@ const useWordleState = () => {
     (status: GameStatus) => {
       dispatch({ type: 'set_game', payload: status });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const setModal = useCallback(
     (modal: ModalObject | null) => {
       dispatch({ type: 'set_modal', payload: modal });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const setStats = useCallback(
     (stats: WordleObject | null) => {
       dispatch({ type: 'set_stats', payload: stats });
     },
-    [dispatch]
+    [dispatch],
   );
 
   return {

@@ -23,7 +23,7 @@
 }
 
 .noteFade {
-  animation: fadeOut ease 1s;
+  animation: fadeOut ease 1s forwards;
 }
 
 @keyframes fadeOut {
