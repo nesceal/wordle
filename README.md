@@ -2,7 +2,7 @@
 
 This is the game of Wordle created in React.
 
-**Live App:** [athena-wordle.vercel.app](https://athena-wordle.vercel.app)
+**Live App:** [delizo-wordle.vercel.app](https://delizo-wordle.vercel.app)
 
 Since there is no authentication implemented, all the stats are saved in `localStorage` with a fixed key.
 
